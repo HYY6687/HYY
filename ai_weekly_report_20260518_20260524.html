@@ -1,0 +1,1989 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI HOT 周报 · 2026年第21周（5.18-5.24）</title>
+<style>
+  :root {
+    --primary: #2B7FE0;
+    --primary-dark: #1A62C0;
+    --secondary: #5AA8F8;
+    --accent: #3D8EF0;
+    --bg: #F4F7FC;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #EEF4FF;
+    --border: #D8E6F8;
+    --text: #1A2D4A;
+    --text-muted: #5A7090;
+    --text-dim: #90AAC4;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 24px rgba(43, 127, 224, 0.12);
+    --font: -apple-system, "PingFang SC", "Microsoft YaHei", BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  
+  /* ─── Hero ─── */
+  .hero {
+    background: linear-gradient(135deg, #E8F0FE 0%, #D0E4FF 30%, #EAF2FF 60%, #F4F7FC 100%);
+    padding: 60px 24px 40px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #C8DEFF;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: -120px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(43,127,224,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(90,168,248,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(43,127,224,0.10);
+    border: 1px solid rgba(43,127,224,0.25);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  
+  .hero-title {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(135deg, #1A62C0, #2B7FE0, #5AA8F8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  
+  .hero-sub {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 32px;
+  }
+  
+  .hero-total {
+    font-size: clamp(48px, 8vw, 80px);
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  
+  .hero-total-label {
+    font-size: 18px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+  }
+  
+  .stat-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(43,127,224,0.15);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  
+  .stat-card:hover {
+    background: rgba(43,127,224,0.07);
+    border-color: rgba(43,127,224,0.25);
+    transform: translateY(-2px);
+  }
+  
+  .stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  
+  /* ─── Sticky Nav ─── */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(244,247,252,0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 10px 0;
+  }
+  
+  .nav-inner::-webkit-scrollbar { display: none; }
+  
+  .nav-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  
+  .nav-item:hover {
+    color: var(--primary);
+    background: rgba(43,127,224,0.08);
+    border-color: rgba(43,127,224,0.2);
+  }
+  
+  .nav-badge {
+    background: rgba(43,127,224,0.12);
+    color: var(--primary);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 100px;
+  }
+  
+  /* ─── Main Layout ─── */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  
+  /* ─── Section ─── */
+  .section {
+    margin-bottom: 60px;
+    scroll-margin-top: 60px;
+  }
+  
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .section-icon {
+    font-size: 24px;
+    line-height: 1;
+  }
+  
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    flex: 1;
+  }
+  
+  .section-badge {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  
+  /* ─── Card Grid ─── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  
+  /* ─── Card ─── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0;
+    transform: translateY(20px);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(43,127,224,0.3);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+  
+  .card:hover::before { opacity: 1; }
+  
+  .card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .card-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary);
+    background: rgba(43,127,224,0.08);
+    padding: 2px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+  
+  .card-date {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .card-meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .chip {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+  
+  .chip-openai   { background: rgba(16,163,127,0.15); color: #10A37F; border: 1px solid rgba(16,163,127,0.3); }
+  .chip-google   { background: rgba(66,133,244,0.15); color: #4285F4; border: 1px solid rgba(66,133,244,0.3); }
+  .chip-anthropic{ background: rgba(211,170,114,0.15); color: #D3AA72; border: 1px solid rgba(211,170,114,0.3); }
+  .chip-alibaba  { background: rgba(255,100,0,0.15); color: #FF6400; border: 1px solid rgba(255,100,0,0.3); }
+  .chip-tencent  { background: rgba(0,166,255,0.15); color: #00A6FF; border: 1px solid rgba(0,166,255,0.3); }
+  .chip-media    { background: rgba(100,130,160,0.1); color: #607080; border: 1px solid rgba(100,130,160,0.25); }
+  .chip-tech     { background: rgba(255,165,0,0.12); color: #FFA500; border: 1px solid rgba(255,165,0,0.25); }
+  .chip-default  { background: rgba(90,112,144,0.1); color: #5A7090; border: 1px solid rgba(90,112,144,0.2); }
+  
+  .card-summary {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    background: rgba(43,127,224,0.07);
+    border: 1px solid rgba(43,127,224,0.2);
+    transition: all 0.2s;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+  
+  .card-link:hover {
+    background: rgba(43,127,224,0.12);
+    border-color: rgba(43,127,224,0.4);
+    transform: translateX(2px);
+  }
+  
+  /* ─── Footer ─── */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  
+  .footer a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+  
+  /* ─── Scroll to top ─── */
+  .back-top {
+    position: fixed;
+    bottom: 32px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(43,127,224,0.35);
+    z-index: 200;
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+  }
+  
+  .back-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* ─── Responsive ─── */
+  @media (max-width: 640px) {
+    .hero { padding: 40px 16px 32px; }
+    .main { padding: 24px 16px 60px; }
+    .nav-bar { padding: 0 12px; }
+    .card-grid { grid-template-columns: 1fr; gap: 12px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  /* ─── Animations ─── */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .hero-inner > * {
+    animation: fadeInDown 0.6s ease both;
+  }
+  
+  .hero-inner > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-inner > *:nth-child(2) { animation-delay: 0.1s; }
+  .hero-inner > *:nth-child(3) { animation-delay: 0.15s; }
+  .hero-inner > *:nth-child(4) { animation-delay: 0.2s; }
+  .hero-inner > *:nth-child(5) { animation-delay: 0.25s; }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">🔥 AI HOT 周报</div>
+    <h1 class="hero-title">AI HOT 周报<br>2026 年第 21 周</h1>
+    <p class="hero-sub">2026年5月18日（周一）— 5月24日（周日）· 7 天动态汇总</p>
+    <div class="hero-total">
+      <span>98</span>
+      <span class="hero-total-label">条精选资讯</span>
+    </div>
+    <div class="stats-grid">
+      
+        <div class="stat-card">
+          <div class="stat-num">15</div>
+          <div class="stat-label">🤖 模型发布/更新</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">34</div>
+          <div class="stat-label">📡 AI行业动态</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">42</div>
+          <div class="stat-label">🚀 AI产品动态</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">7</div>
+          <div class="stat-label">👥 HR×AI行业动态</div>
+        </div>
+    </div>
+  </div>
+</header>
+
+<!-- Sticky Nav -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <a href="#models" class="nav-item">🤖 模型发布/更新 <span class="nav-badge">15</span></a><a href="#industry" class="nav-item">📡 AI行业动态 <span class="nav-badge">34</span></a><a href="#products" class="nav-item">🚀 AI产品动态 <span class="nav-badge">42</span></a><a href="#hr-ai" class="nav-item">👥 HR×AI行业动态 <span class="nav-badge">7</span></a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main">
+  
+    <section id="models" class="section">
+      <div class="section-header">
+        <span class="section-icon">🤖</span>
+        <h2 class="section-title">模型发布/更新</h2>
+        <span class="section-badge">15 条</span>
+      </div>
+      <div class="card-grid">
+        
+    <div class="card" data-num="1">
+      <div class="card-header">
+        <span class="card-num">#1</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">I/O 2026: 欢迎来到自主的 Gemini 时代</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">Google Blog：AI（RSS）</span>
+      </div>
+      <p class="card-summary">Google 在 I/O 2026 大会上宣布 Gemini 进入自主代理时代，新功能使其能够自动执行复杂任务，显著提升用户工作效率。大会展示了 Gemini …</p>
+      <a href="https://blog.google/innovation-and-ai/sundar-pichai-io-2026" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="2">
+      <div class="card-header">
+        <span class="card-num">#2</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">谷歌发布Gemini Omni多模态生成模型</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Gemini (@GeminiApp)</span>
+      </div>
+      <p class="card-summary">介绍Gemini Omni，我们的新模型，可以从任何输入创建任何内容，首先从视频开始。 借助Gemini Omni，您可以将图像、视频和文本作为输入组合，并生成…</p>
+      <a href="https://x.com/GeminiApp/status/2056814052039356806" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="3">
+      <div class="card-header">
+        <span class="card-num">#3</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Gemini Omni：迈向AGI的世界模型</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Kim (@kimmonismus)</span>
+      </div>
+      <p class="card-summary">真正的“哇”时刻是 Gemini Omni。一个迈向 AGI 的世界模型。 它可以从任何输入创建任何内容。这太疯狂了。</p>
+      <a href="https://x.com/kimmonismus/status/2056802929957568881" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="4">
+      <div class="card-header">
+        <span class="card-num">#4</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Gemini Omni发布：物理推理与多模态生成新突破</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Sundar Pichai (@sundarp</span>
+      </div>
+      <p class="card-summary">Gemini Omni不仅能构建逼真的场景，还能推理接下来应该发生什么。它结合了对物理的直观理解与Gemini在历史、科学和文化背景方面的知识。 今日起，通过@…</p>
+      <a href="https://x.com/sundarpichai/status/2056816915717443862" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="5">
+      <div class="card-header">
+        <span class="card-num">#5</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Gemini Omni发布：多模态生成新突破</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Google DeepMind (@Googl</span>
+      </div>
+      <p class="card-summary">我们推出Gemini Omni：这是迈向一个能从任何内容生成任何内容的模型的第一步——从视频开始。 它结合了Gemini的智能与我们的生成式媒体系统——代表了在…</p>
+      <a href="https://x.com/GoogleDeepMind/status/2056786446636212467" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="6">
+      <div class="card-header">
+        <span class="card-num">#6</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">谷歌 Gemini Omni 全能模型发布：可从任意输入生成任意输出，一句话让 AI 修改视频</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">在2026年谷歌I/O开发者大会上，谷歌正式推出Gemini Omni模型。该模型代表了Gemini家族迄今最全面的能力，“Omni”意为全能，能够无缝处理文本…</p>
+      <a href="https://www.ithome.com/0/952/519.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="7">
+      <div class="card-header">
+        <span class="card-num">#7</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Gemini Omni发布，迈向AGI新进展</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Kim (@kimmonismus)</span>
+      </div>
+      <p class="card-summary">„迈向AGI的进展“：Gemini Omni - 世界模型 -Gemini Omni官方发布！！ 它可以从任何输入创建任何内容！！！</p>
+      <a href="https://x.com/kimmonismus/status/2056786433458000041" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="8">
+      <div class="card-header">
+        <span class="card-num">#8</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">首个实时多agent世界模型发布，人类可与AI同屏互动</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Berry Xia (@berryxia)</span>
+      </div>
+      <p class="card-summary">奥德赛实验室推出Agora-1，这是全球首个实时多agent世界模型，允许多人与AI同时在同一个模拟世界中实时互动并相互影响。该模型以经典游戏GoldenEye…</p>
+      <a href="https://x.com/berryxia/status/2056548546544124240" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="9">
+      <div class="card-header">
+        <span class="card-num">#9</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">Qwen3.7：智能体前沿</h3>
+      <div class="card-meta">
+        <span class="chip chip-alibaba">Qwen：Blog Retrieval（API）</span>
+      </div>
+      <p class="card-summary">Qwen Studio推出Qwen3.7模型，提供覆盖聊天机器人、图像与视频理解、图像生成、文档处理、网页搜索集成、工具调用及工件生成等功能。该模型整合了当前A…</p>
+      <a href="https://qwen.ai/blog?id=qwen3.7" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="10">
+      <div class="card-header">
+        <span class="card-num">#10</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">Kling AI推出全球首个原生4K视频生成模型</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：可灵 Kling AI (@Kling_ai)</span>
+      </div>
+      <p class="card-summary">4月23日，Kling AI正式推出全球首个原生4K视频生成模型，专为专业内容创作设计。该功能支持一键生成真4K画质视频，显著提升画面细节与制作效率。模型已获得…</p>
+      <a href="https://x.com/Kling_ai/status/2056950317712101599" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="11">
+      <div class="card-header">
+        <span class="card-num">#11</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">SenseNova U1：同时思考文本与图像的AI</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：商汤 SenseTime (@SenseTim</span>
+      </div>
+      <p class="card-summary">将你的想法转化为激发故事的视觉画面 🧨 [引用 @Adamaestr0_]：大多数AI工具可以写作或生成图像。 但这个能同时做这两件事。 向你介绍 SenseN…</p>
+      <a href="https://x.com/SenseTime_AI/status/2057049434782097851" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="12">
+      <div class="card-header">
+        <span class="card-num">#12</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">Aleph 2.0 与 Edit Studio</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">Runway：Changelog（网页）</span>
+      </div>
+      <p class="card-summary">正式发布 Aleph 2.0 及配套的 Edit Studio 创作工具。此次更新实现了创作流程的全面整合，将内容生成、编辑与后期制作集中于统一平台。新版本显著…</p>
+      <a href="https://app.runwayml.com/generate?mode=edit" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="13">
+      <div class="card-header">
+        <span class="card-num">#13</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">腾讯开源Hy-MT2多语言翻译模型</h3>
+      <div class="card-meta">
+        <span class="chip chip-tencent">X：腾讯混元 (@TencentHunyuan)</span>
+      </div>
+      <p class="card-summary">腾讯正式开源Hy-MT2多语言翻译模型，支持33种语言间的无缝互译。其7B与30B-A3B版本在开源模型中达到最先进的翻译性能，超越了许多参数规模大数十倍的模型…</p>
+      <a href="https://x.com/TencentHunyuan/status/2057384034544804136" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="14">
+      <div class="card-header">
+        <span class="card-num">#14</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">LongCat-Video-Avatar-1.5：升级版音频驱动数字人视频生成框架</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">美团 LongCat：HuggingFace 新模</span>
+      </div>
+      <p class="card-summary">美团LongCat团队发布了LongCat-Video-Avatar-1.5，一个专注于音频驱动数字人视频生成的开源框架。其核心升级在于采用Whisper-La…</p>
+      <a href="https://huggingface.co/meituan-longcat/LongCat-Video-Avatar-1.5" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="15">
+      <div class="card-header">
+        <span class="card-num">#15</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">首个基于华为昇腾910B NPU全栈训练的1.58比特开源大模型BitCPM-CANN发布</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Rohan Paul (@rohanpaul_</span>
+      </div>
+      <p class="card-summary">ModelBest、清华大学与OpenBMB社区联合发布了BitCPM-CANN，这是全球首个完全基于华为昇腾910B NPU训练的开源1.58比特三元大模型…</p>
+      <a href="https://x.com/rohanpaul_ai/status/2057833050692800926" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+      </div>
+    </section>
+    <section id="industry" class="section">
+      <div class="section-header">
+        <span class="section-icon">📡</span>
+        <h2 class="section-title">AI行业动态</h2>
+        <span class="section-badge">34 条</span>
+      </div>
+      <div class="card-grid">
+        
+    <div class="card" data-num="16">
+      <div class="card-header">
+        <span class="card-num">#16</span>
+        <span class="card-date">5月19日（周二）</span>
+      </div>
+      <h3 class="card-title">人机快递分拣对决直播</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：小互 (@xiaohu)</span>
+      </div>
+      <p class="card-summary">Figure 直播机器人 VS 人类 挑战 快递分拣任务 目前人类稍稍领先…😌</p>
+      <a href="https://x.com/xiaohu/status/2056172740873511139" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="17">
+      <div class="card-header">
+        <span class="card-num">#17</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Karpathy加入Anthropic团队</h3>
+      <div class="card-meta">
+        <span class="chip chip-anthropic">X：Claude Devs (@ClaudeDev</span>
+      </div>
+      <p class="card-summary">欢迎加入团队，Andrej！</p>
+      <a href="https://x.com/ClaudeDevs/status/2056753265346564259" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="18">
+      <div class="card-header">
+        <span class="card-num">#18</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">安德烈·卡帕西加入Anthropic</h3>
+      <div class="card-meta">
+        <span class="chip chip-tech">Hacker News 热门（buzzing.cc</span>
+      </div>
+      <p class="card-summary">AI领域知名专家安德烈·卡帕西于2026年5月19日宣布加入人工智能安全公司Anthropic。卡帕西此前曾是特斯拉自动驾驶AI负责人及OpenAI联合创始人…</p>
+      <a href="https://twitter.com/karpathy/status/2056753169888334312" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="19">
+      <div class="card-header">
+        <span class="card-num">#19</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">前OpenAI核心成员Andrej Karpathy选择Anthropic重返前沿LLM研究</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">The Decoder：AI News（RSS）</span>
+      </div>
+      <p class="card-summary">著名AI研究人员Andrej Karpathy已加入Anthropic。这位前OpenAI核心团队成员兼特斯拉Autopilot架构师表示，他希望重返研发一线…</p>
+      <a href="https://the-decoder.com/prominent-ai-researcher-andrej-karpathy-picks-anthropic-over-former-home-openai-to-get-back-into-frontier-llm-research" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="20">
+      <div class="card-header">
+        <span class="card-num">#20</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Google I/O 2026</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">Google Blog：AI（RSS）</span>
+      </div>
+      <p class="card-summary">在Google I/O 2026大会上，Google宣布了多项旨在让AI更普惠、更实用的更新。这些发布聚焦于提升人工智能的辅助能力，使其能够服务更广泛的用户群体…</p>
+      <a href="https://blog.google/innovation-and-ai/technology/developers-tools/google-io-2026-collection" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="21">
+      <div class="card-header">
+        <span class="card-num">#21</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Andrej加入Anthropic，马斯克也点赞</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Yuchen Jin (@Yuchenj_UW</span>
+      </div>
+      <p class="card-summary">Andrej加入了Anthropic。 连Elon都忍不住称赞Anthropic。 Anthropic今天在Google I/O上真是气场全开。</p>
+      <a href="https://x.com/Yuchenj_UW/status/2056764450712256753" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="22">
+      <div class="card-header">
+        <span class="card-num">#22</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">谷歌每月处理超 3200 万亿 Token，同比增长 7 倍</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">在2026年谷歌I/O开发者大会上，谷歌宣布其AI业务关键指标大幅增长。2026年5月，谷歌每月处理的Token数量超过3200万亿，同比增长达7倍。其Gemi…</p>
+      <a href="https://www.ithome.com/0/952/518.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="23">
+      <div class="card-header">
+        <span class="card-num">#23</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Anthropic联合创始人将与教皇利奥十四世共同发布人工智能通谕</h3>
+      <div class="card-meta">
+        <span class="chip chip-tech">Hacker News 热门（buzzing.cc</span>
+      </div>
+      <p class="card-summary">Anthropic联合创始人将于2026年5月与教皇利奥十四世共同发布首个人工智能通谕“magnifica humanitas”。这是教皇利奥十四世的首次通谕…</p>
+      <a href="https://www.vaticannews.va/en/pope/news/2026-05/pope-leo-xiv-first-encyclical-magnifica-humanitas.html" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="24">
+      <div class="card-header">
+        <span class="card-num">#24</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Gemini月活用户超9亿，回顾年度重大功能发布</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Gemini (@GeminiApp)</span>
+      </div>
+      <p class="card-summary">每月有超过9亿用户使用Gemini应用。 这一增长的重要部分源于我们快速的发布节奏。以下是过去一年我们推出的一些最重要功能的回顾。🧵 #GoogleIO</p>
+      <a href="https://x.com/GeminiApp/status/2056799436052017597" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="25">
+      <div class="card-header">
+        <span class="card-num">#25</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">SpaceX与Anthropic合作提供大规模AI算力服务</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Elon Musk (@elonmusk, x</span>
+      </div>
+      <p class="card-summary">正如最近与@AnthropicAI扩大合作所展示的，@SpaceX正在大规模提供AI算力服务。 我们正在与其他公司进行类似合作的讨论。 随着时间的推移，特别是通…</p>
+      <a href="https://x.com/elonmusk/status/2057228707606196434" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="26">
+      <div class="card-header">
+        <span class="card-num">#26</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">OpenAI向所有YC创业公司提供200万美元API投资</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Greg Brockman (@gdb)</span>
+      </div>
+      <p class="card-summary">OpenAI宣布向Y Combinator当前批次的每家创业公司提供价值200万美元的API信用额度投资，以换取股权。此举旨在为初创公司提供AI算力资源，支持下…</p>
+      <a href="https://x.com/gdb/status/2056948285038887255" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="27">
+      <div class="card-header">
+        <span class="card-num">#27</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">欧盟委员会发布《欧盟人工智能法》高风险AI系统分类指导草案并开启公众咨询</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">DataGuidance：Artificial I</span>
+      </div>
+      <p class="card-summary">欧盟委员会于2026年5月19日发布了关于《欧盟人工智能法》第六条项下高风险AI系统分类的指导草案。该草案旨在为AI系统的提供商、部署者及市场监管机构提供明确的…</p>
+      <a href="https://www.dataguidance.com/news/eu-commission-publishes-draft-guidelines-classifying" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="28">
+      <div class="card-header">
+        <span class="card-num">#28</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">投资超 600 亿美元，孙正义豪赌 OpenAI 引发内部质疑“迷信奥尔特曼如追星”</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">软银对OpenAI的投资承诺已超600亿美元，引发内部对孙正义过度信任其创始人奥尔特曼的担忧。部分高管质疑将巨额资本集中于单一公司存在风险，且软银虽持股超10%…</p>
+      <a href="https://www.ithome.com/0/953/021.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="29">
+      <div class="card-header">
+        <span class="card-num">#29</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">谷歌的人工智能正遭到操纵。这家搜索巨头正在悄然反击</h3>
+      <div class="card-meta">
+        <span class="chip chip-tech">Hacker News 热门（buzzing.cc</span>
+      </div>
+      <p class="card-summary">谷歌的AI系统正面临被操纵的风险。为应对这一挑战，这家科技巨头已悄然启动防御措施，以保护其AI生成内容的结果免受恶意干扰。此举旨在确保搜索和AI服务的可靠性与可…</p>
+      <a href="https://www.bbc.com/future/article/20260519-google-tackles-attempts-to-hack-its-ai-results" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="30">
+      <div class="card-header">
+        <span class="card-num">#30</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">消息称微软内部示警：GitHub 面临生存级风险，AI 编程工具削弱托管必要性</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">微软内部发出警告，称其代码托管平台GitHub正面临“生存级风险”。主要原因是Cursor、Claude Code等AI编程助手兴起，改变了开发者工作流，削弱了…</p>
+      <a href="https://www.ithome.com/0/952/645.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="31">
+      <div class="card-header">
+        <span class="card-num">#31</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">Gemini与XPRIZE联合举办全球黑客松</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Google AI for Developer</span>
+      </div>
+      <p class="card-summary">用Gemini构建，改变世界🌍 我们正与@xprize合作，发起一场全球黑客松，旨在利用我们全新的智能体工具解决现实世界的挑战。 点击加入：https://ww…</p>
+      <a href="https://x.com/googleaidevs/status/2057166550243872920" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="32">
+      <div class="card-header">
+        <span class="card-num">#32</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">FSD正式登陆中国大陆市场</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：小互 (@xiaohu)</span>
+      </div>
+      <p class="card-summary">FSD来了… 官宣进入大陆…</p>
+      <a href="https://x.com/xiaohu/status/2057279976467218765" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="33">
+      <div class="card-header">
+        <span class="card-num">#33</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">Anthropic即将成为首个盈利的AI实验室</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">The Decoder：AI News（RSS）</span>
+      </div>
+      <p class="card-summary">根据《华尔街日报》报道，Anthropic正接近实现其首个盈利季度，预计第二季度营收达109亿美元，运营利润为5.59亿美元。该公司在去年夏季时还预计最早在20…</p>
+      <a href="https://the-decoder.com/anthropic-is-about-to-become-the-first-profitable-ai-lab" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="34">
+      <div class="card-header">
+        <span class="card-num">#34</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">首部100%AI生成电影亮相戛纳，剑指2026院线</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：可灵 Kling AI (@Kling_ai)</span>
+      </div>
+      <p class="card-summary">AI电影项目RAPHAEL在戛纳亮相。该片由Mateo AI Studio与韩国MBC C&I的AI内容实验室联合开发，全程使用Kling AI视频模型进行制作…</p>
+      <a href="https://x.com/Kling_ai/status/2057295321831539054" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="35">
+      <div class="card-header">
+        <span class="card-num">#35</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">谷歌DeepMind在亚太启动AI气候加速器</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">Google DeepMind：Blog（RSS）</span>
+      </div>
+      <p class="card-summary">亚太地区经济增长迅速，但极易受到气候变化影响，且现有绿色技术发展速度跟不上环境风险的增长。为此，Google DeepMind宣布启动首届专注于“AI for …</p>
+      <a href="https://deepmind.google/blog/were-launching-the-google-deepmind-accelerator-program-in-asia-pacific-to-tackle-environmental-risks" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="36">
+      <div class="card-header">
+        <span class="card-num">#36</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">商汤连续十年领跑中国计算机视觉市场</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：商汤 SenseTime (@SenseTim</span>
+      </div>
+      <p class="card-summary">商汤科技被IDC连续十年评为中国计算机视觉市场第一。其关键驱动因素包括：主导推进CV 2.0架构演进，原生嵌入生成式AI能力；海外市场扩展至12个国际区域，服务…</p>
+      <a href="https://x.com/SenseTime_AI/status/2057289342654300586" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="37">
+      <div class="card-header">
+        <span class="card-num">#37</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">AdventHealth携手OpenAI推进全人医疗</h3>
+      <div class="card-meta">
+        <span class="chip chip-openai">OpenAI：官网动态（RSS · 排除企业/客户</span>
+      </div>
+      <p class="card-summary">AdventHealth正在采用OpenAI的ChatGPT for Healthcare解决方案，旨在优化医疗工作流程，减轻医务人员行政负担，从而将更多时间还…</p>
+      <a href="https://openai.com/index/adventhealth" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="38">
+      <div class="card-header">
+        <span class="card-num">#38</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">Project Glasswing：初步更新</h3>
+      <div class="card-meta">
+        <span class="chip chip-anthropic">Anthropic：Newsroom（网页）</span>
+      </div>
+      <p class="card-summary">上月启动的Project Glasswing项目，旨在利用先进AI模型保障关键软件安全。通过约50家合作伙伴使用Claude Mythos Preview模型…</p>
+      <a href="https://www.anthropic.com/research/glasswing-initial-update" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="39">
+      <div class="card-header">
+        <span class="card-num">#39</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">黄仁勋：AI 基建年度开支要冲到 4 万亿美元！</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">英伟达发布2027财年Q1财报，营收816亿美元，同比增长85%，净利润583亿美元，翻两倍多，市值达5.7万亿美元，已超德国2026年GDP预测。黄仁勋预测…</p>
+      <a href="https://www.ithome.com/0/954/223.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="40">
+      <div class="card-header">
+        <span class="card-num">#40</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">DeepSeek 推进 700 亿元融资，梁文锋承诺坚持开发开源 AI 模型而非追求短期商业化目标</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">DeepSeek正推进700亿元人民币的巨额融资，估值约450亿美元。创始人梁文锋承诺将继续开源开发AI模型，不追求短期商业化，目标是技术升级与通用人工智能。腾…</p>
+      <a href="https://www.ithome.com/0/953/832.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="41">
+      <div class="card-header">
+        <span class="card-num">#41</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">Cursor 被评为 2026 年 Gartner 企业级 AI 编码代理魔力象限领导者</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">Cursor Blog</span>
+      </div>
+      <p class="card-summary">Gartner 在 2026 年魔力象限报告中，将 Cursor 评为企业级 AI 编码代理领域的领导者，并在愿景完整性上领先。超过 70% 的财富 500 强…</p>
+      <a href="https://cursor.com/blog/cursor-leads-gartner-mq-2026" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="42">
+      <div class="card-header">
+        <span class="card-num">#42</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">DeepSeek V4 Flash登顶周榜</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：OpenRouter (@OpenRouter</span>
+      </div>
+      <p class="card-summary">DeepSeek V4 Flash已登顶周排行榜</p>
+      <a href="https://x.com/OpenRouter/status/2057703179882749985" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="43">
+      <div class="card-header">
+        <span class="card-num">#43</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">Suno AI创作夏日神曲《波多黎各》爆火</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Suno (@suno)</span>
+      </div>
+      <p class="card-summary">今年夏天的热门歌曲是用 Suno 制作的。☀️非常感谢 @GMA 让这首病毒式传播的《Puerto Rico》歌曲被更多人看到！还有谁的脑海里也一直回响着这首歌…</p>
+      <a href="https://x.com/suno/status/2057858423664894196" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="44">
+      <div class="card-header">
+        <span class="card-num">#44</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">GitHub 连续第三年被 Gartner® 魔力象限™ 评为企业级 AI 编程代理领域的领导者</h3>
+      <div class="card-meta">
+        <span class="chip chip-tech">GitHub Blog</span>
+      </div>
+      <p class="card-summary">Gartner 最新发布的魔力象限报告中，GitHub 连续第三年被列为“领导者”象限，该评估专注于企业级 AI 编程代理领域。GitHub 表示，其致力于构建…</p>
+      <a href="https://github.blog/ai-and-ml/github-copilot/github-recognized-as-a-leader-in-the-gartner-magic-quadrant-for-enterprise-ai-coding-agents-for-the-third-year-in-a-row" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="45">
+      <div class="card-header">
+        <span class="card-num">#45</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">OpenAI被Gartner评为企业AI编码代理领域领导者</h3>
+      <div class="card-meta">
+        <span class="chip chip-openai">OpenAI：官网动态（RSS · 排除企业/客户</span>
+      </div>
+      <p class="card-summary">Gartner发布2026年企业AI编码代理魔力象限报告，OpenAI被列为领导者。其产品Codex因在技术创新和企业级部署方面的突出表现获得认可，反映了Ope…</p>
+      <a href="https://openai.com/index/gartner-2026-agentic-coding-leader" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="46">
+      <div class="card-header">
+        <span class="card-num">#46</span>
+        <span class="card-date">5月24日（周日）</span>
+      </div>
+      <h3 class="card-title">消息称 Anthropic 最快下周完成逾 300 亿美元融资，有望推动估值反超 OpenAI</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">据彭博社报道，Anthropic即将完成一轮超300亿美元的融资，最快可能于下周敲定。此轮融资将使其估值突破9000亿美元，正式超越OpenAI，成为全球估值最…</p>
+      <a href="https://www.ithome.com/0/954/452.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="47">
+      <div class="card-header">
+        <span class="card-num">#47</span>
+        <span class="card-date">5月24日（周日）</span>
+      </div>
+      <h3 class="card-title">加倍投入科学以赢得工业AI</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">Mistral AI：News（网页）</span>
+      </div>
+      <p class="card-summary">Mistral AI宣布与物理AI先驱Emmi AI达成最终收购协议，旨在加强其在工业AI领域的领导地位。通过整合Emmi AI在物理仿真与数字孪生方面的专长…</p>
+      <a href="https://mistral.ai/news/science-to-win-industrial-ai" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="48">
+      <div class="card-header">
+        <span class="card-num">#48</span>
+        <span class="card-date">5月24日（周日）</span>
+      </div>
+      <h3 class="card-title">Kling AI亮相戛纳，推动AI赋能电影制作</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：可灵 Kling AI (@Kling_ai)</span>
+      </div>
+      <p class="card-summary">Kling AI在戛纳电影市场（Marché du Film）举办官方会议，首次登上这一世界顶级电影舞台。会议汇集全球电影专业人士，共同探讨AI如何融入实际电影…</p>
+      <a href="https://x.com/Kling_ai/status/2058013861404684739" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="49">
+      <div class="card-header">
+        <span class="card-num">#49</span>
+        <span class="card-date">5月24日（周日）</span>
+      </div>
+      <h3 class="card-title">扩大与新加坡合作，推动AI安全规模化部署</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Google DeepMind (@Googl</span>
+      </div>
+      <p class="card-summary">我们正在扩大与新加坡的合作，以帮助安全地大规模部署AI。🇸🇬 与各国专家合作，我们的新项目将重点加速科学发现、加强大流行病防范并改善医疗保健。 了解更多 → h…</p>
+      <a href="https://x.com/GoogleDeepMind/status/2057985225100235022" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+      </div>
+    </section>
+    <section id="products" class="section">
+      <div class="section-header">
+        <span class="section-icon">🚀</span>
+        <h2 class="section-title">AI产品动态</h2>
+        <span class="section-badge">42 条</span>
+      </div>
+      <div class="card-grid">
+        
+    <div class="card" data-num="50">
+      <div class="card-header">
+        <span class="card-num">#50</span>
+        <span class="card-date">5月18日（周一）</span>
+      </div>
+      <h3 class="card-title">Grok Imagine图像生成功能正式发布</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Elon Musk (@elonmusk, x</span>
+      </div>
+      <p class="card-summary">Grok Imagine 现已正式发布 所有人都可使用 基于我们最新的文本到图像模型 能够生成逼真、高质量的图像 支持多种宽高比 现在可在 X 上使用</p>
+      <a href="https://x.com/elonmusk/status/2055912040481599793" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="51">
+      <div class="card-header">
+        <span class="card-num">#51</span>
+        <span class="card-date">5月18日（周一）</span>
+      </div>
+      <h3 class="card-title">手机端ChatGPT应用集成Codex构建功能</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Greg Brockman (@gdb)</span>
+      </div>
+      <p class="card-summary">你可以在手机端通过ChatGPT应用中的Codex直接构建项目</p>
+      <a href="https://x.com/gdb/status/2055882172884763012" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="52">
+      <div class="card-header">
+        <span class="card-num">#52</span>
+        <span class="card-date">5月18日（周一）</span>
+      </div>
+      <h3 class="card-title">Zerostack——一款采用纯Rust语言编写、受Unix启发的编程代理</h3>
+      <div class="card-meta">
+        <span class="chip chip-tech">Hacker News 热门（buzzing.cc</span>
+      </div>
+      <p class="card-summary">Zerostack是一款采用纯Rust语言编写、受Unix哲学启发的编程代理工具，已正式发布1.0.0版本并在Rust包管理平台crates.io上提供。该发布…</p>
+      <a href="https://crates.io/crates/zerostack/1.0.0" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="53">
+      <div class="card-header">
+        <span class="card-num">#53</span>
+        <span class="card-date">5月19日（周二）</span>
+      </div>
+      <h3 class="card-title">阿里云推出HappyHorse视频生成模型</h3>
+      <div class="card-meta">
+        <span class="chip chip-alibaba">X：阿里云 / Alibaba Cloud (@a</span>
+      </div>
+      <p class="card-summary">电影级AI现已到来。🐎💨 HappyHorse现已登陆Model Studio。从原始提示词到1080p多镜头现实感画面——在统一工作流中体验视频生成的未来。没…</p>
+      <a href="https://x.com/alibaba_cloud/status/2056182152681644176" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="54">
+      <div class="card-header">
+        <span class="card-num">#54</span>
+        <span class="card-date">5月19日（周二）</span>
+      </div>
+      <h3 class="card-title">腾讯 AI 设计智能体 Ardot 公测：一句话生成可编辑设计稿，一键转代码</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">腾讯云正式公测自研AI设计智能体平台Ardot。该平台核心功能包括：用户通过一句话指令即可生成App页面、官网、海报等可编辑设计稿；支持调用团队自有组件库生成规…</p>
+      <a href="https://www.ithome.com/0/951/677.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="55">
+      <div class="card-header">
+        <span class="card-num">#55</span>
+        <span class="card-date">5月19日（周二）</span>
+      </div>
+      <h3 class="card-title">一键生成韩国棒球AI视频模板爆火</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：PixVerse (@PixVerse_)</span>
+      </div>
+      <p class="card-summary">那个热狗需要自己的座位 [引用 @MrDasOnX]：这可能是最简单的病毒式AI编辑。 PixVerse → 上传自拍 → 即时生成韩国棒球镜头视频 无需指令…</p>
+      <a href="https://x.com/PixVerse_/status/2056198882321904098" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="56">
+      <div class="card-header">
+        <span class="card-num">#56</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">谷歌推出全新AI智能搜索框，支持多模态交互</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Google AI (@GoogleAI)</span>
+      </div>
+      <p class="card-summary">谷歌宣布推出基于Gemini 3.5模型的全新智能搜索框。该更新将AI Overviews与AI Mode整合为统一的AI搜索体验，支持对文本、图像、文件及视频…</p>
+      <a href="https://x.com/GoogleAI/status/2056845506601718271" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="57">
+      <div class="card-header">
+        <span class="card-num">#57</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Claude智能体托管平台新增自托管沙箱与MCP隧道功能</h3>
+      <div class="card-meta">
+        <span class="chip chip-anthropic">Claude：Blog（网页）</span>
+      </div>
+      <p class="card-summary">Anthropic为其Claude智能体托管平台推出两项更新：自托管沙箱允许用户在自有基础设施或合作云平台上运行工具，确保敏感数据与服务保留在用户控制范围内；M…</p>
+      <a href="https://claude.com/blog/claude-managed-agents-updates" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="58">
+      <div class="card-header">
+        <span class="card-num">#58</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Gemini Spark：全天候个人AI代理</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Gemini (@GeminiApp)</span>
+      </div>
+      <p class="card-summary">Gemini Spark 是您的全天候个人AI代理，帮助您驾驭数字生活。 它将 Gemini 从一个回答您问题的助手，转变为一个在您的指导下、代表您完成工作的助…</p>
+      <a href="https://x.com/GeminiApp/status/2056801918018564538" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="59">
+      <div class="card-header">
+        <span class="card-num">#59</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Google Workspace 推出全新创建方式与高效工作功能</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">Google Blog：AI（RSS）</span>
+      </div>
+      <p class="card-summary">Google 在最新更新中为 Gmail、Docs 和 Keep 增添了新的语音功能，并推出了一款名为 Google Pics 的全新设计工具。同时，其 AI …</p>
+      <a href="https://blog.google/products-and-platforms/products/workspace/workspace-updates" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="60">
+      <div class="card-header">
+        <span class="card-num">#60</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Ramp利用Gemini API构建高级财务代理</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Google AI for Developer</span>
+      </div>
+      <p class="card-summary">通过使用Gemini API中的新托管代理功能，@Ramp在无需接触后端基础设施的情况下构建了其高级财务代理。 了解更多 ↓</p>
+      <a href="https://x.com/googleaidevs/status/2056874010265485341" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="61">
+      <div class="card-header">
+        <span class="card-num">#61</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Gemini Omni助力Google Flow创作电影级故事</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Google DeepMind (@Googl</span>
+      </div>
+      <p class="card-summary">Google Flow 🤝 Gemini Omni 使用我们的最新模型创作更具电影感的故事，它带来了批量编辑、改进的角色一致性等功能。以下是@FlowbyGoo…</p>
+      <a href="https://x.com/GoogleDeepMind/status/2056804306653794336" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="62">
+      <div class="card-header">
+        <span class="card-num">#62</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">宣布Claude Managed Agents登陆Cloudflare</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">Cloudflare Blog</span>
+      </div>
+      <p class="card-summary">Cloudflare宣布与Anthropic的Claude Managed Agents深度整合，提供快速、隔离的自主代码交付执行环境。该集成使开发者能够在全球…</p>
+      <a href="https://blog.cloudflare.com/claude-managed-agents" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="63">
+      <div class="card-header">
+        <span class="card-num">#63</span>
+        <span class="card-date">5月20日（周三）</span>
+      </div>
+      <h3 class="card-title">Claude推出自托管沙箱与MCP隧道功能</h3>
+      <div class="card-meta">
+        <span class="chip chip-anthropic">X：Claude (@claudeai)</span>
+      </div>
+      <p class="card-summary">来自Code with Claude伦敦现场：我们正在Claude Managed Agents中推出自托管沙箱（公测版）和MCP隧道（研究预览版）。 在您自己…</p>
+      <a href="https://x.com/claudeai/status/2056645485696315581" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="64">
+      <div class="card-header">
+        <span class="card-num">#64</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">GPT-5即将发布</h3>
+      <div class="card-meta">
+        <span class="chip chip-openai">X：ChatGPT (@ChatGPTapp)</span>
+      </div>
+      <p class="card-summary">GPT-5即将发布 🚢</p>
+      <a href="https://x.com/ChatGPTapp/status/2057178633249394819" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="65">
+      <div class="card-header">
+        <span class="card-num">#65</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">腾讯张军官宣操作系统层级 AI 助手“马维斯”正式上工，Windows、Mac、安卓端同步上线</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">腾讯于5月21日发布了操作系统层级AI助手“马维斯”，支持Windows、Mac和安卓平台同步上线。该助手具备文档归类解析、图片智能识别处理、系统维护等功能，并…</p>
+      <a href="https://www.ithome.com/0/953/096.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="66">
+      <div class="card-header">
+        <span class="card-num">#66</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">Google Stitch更新：AI设计助手实现全流程构建</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Google AI for Developer</span>
+      </div>
+      <p class="card-summary">Google推出了其AI设计伙伴Stitch的多项重要更新。新功能支持实时流式构建设计，允许用户在不中断流程的情况下直接进行编辑和互动反馈。Stitch现已能够…</p>
+      <a href="https://x.com/googleaidevs/status/2057209295763300785" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="67">
+      <div class="card-header">
+        <span class="card-num">#67</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">ChatGPT移动端支持Codex，实现跨设备协作</h3>
+      <div class="card-meta">
+        <span class="chip chip-openai">X：OpenAI Developers (@Ope</span>
+      </div>
+      <p class="card-summary">你的笔记本电脑可以留在家里。 通过ChatGPT移动应用使用Codex，随时随地回答问题，之后还能在电脑上继续同一对话。</p>
+      <a href="https://x.com/OpenAIDevs/status/2057142816497906045" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="68">
+      <div class="card-header">
+        <span class="card-num">#68</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">V8.1新增反向提示功能</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Midjourney (@midjourney</span>
+      </div>
+      <p class="card-summary">今日小幅更新。许多用户要求为V8模型恢复“反向提示”功能（旧版本已有），我们称之为--no标志。该功能现已在V8.1中上线！如果您想从图像中排除某些元素（例如人…</p>
+      <a href="https://x.com/midjourney/status/2057184157869199429" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="69">
+      <div class="card-header">
+        <span class="card-num">#69</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">MiniMax语音模型新增600余种声音</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：MiniMax (@MiniMax_AI)</span>
+      </div>
+      <p class="card-summary">600多种由MiniMax Speech 2.8 Turbo驱动的新声音现已登陆Together AI @togethercompute 🎙️✨ 立即体验：ht…</p>
+      <a href="https://x.com/MiniMax_AI/status/2057177048356180296" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="70">
+      <div class="card-header">
+        <span class="card-num">#70</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">OpenClaw 2026.5.19版本发布</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：OpenClaw (@openclaw)</span>
+      </div>
+      <p class="card-summary">OpenClaw 2026.5.19 🦞 📱 Android Talk Mode 实现实时化 🍎 Mac 设置界面更清爽 🔐 xAI 登录支持无头模式 🧵 Te…</p>
+      <a href="https://x.com/openclaw/status/2057202955581809093" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="71">
+      <div class="card-header">
+        <span class="card-num">#71</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">Gemini 3.5 Flash登陆OpenCode平台</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：opencode (@opencode)</span>
+      </div>
+      <p class="card-summary">Gemini 3.5 Flash现已在OpenCode上线 - 速度极快 - 100万上下文 - 定价与GLM、Kimi和DeepSeek Pro相近</p>
+      <a href="https://x.com/opencode/status/2057017380941795667" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="72">
+      <div class="card-header">
+        <span class="card-num">#72</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">Codex实现全天候跨设备安全操控Mac</h3>
+      <div class="card-meta">
+        <span class="chip chip-openai">X：OpenAI Developers (@Ope</span>
+      </div>
+      <p class="card-summary">Codex随时随地，无处不在。 现在您的Mac无需解锁，Codex即可使用您的电脑。 通过手机，Codex可以安全地使用您Mac上的应用程序，即使屏幕关闭且处于…</p>
+      <a href="https://x.com/OpenAIDevs/status/2057536706778378692" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="73">
+      <div class="card-header">
+        <span class="card-num">#73</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">推出 Gemini for Home 赋能服务提供商与硬件合作伙伴</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">Google Developers Blog（RS</span>
+      </div>
+      <p class="card-summary">Google 通过推出全栈 Gemini AI 解决方案扩展其智能家居生态系统。该方案集成了先进的摄像头智能、自然语言查询功能和日常活动摘要能力。它为服务提供商…</p>
+      <a href="https://developers.googleblog.com/empowering-service-providers-and-hardware-partners-with-gemini-for-home" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="74">
+      <div class="card-header">
+        <span class="card-num">#74</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">合作伙伴如何运用Opus强化网络安全</h3>
+      <div class="card-meta">
+        <span class="chip chip-anthropic">Claude：Blog（网页）</span>
+      </div>
+      <p class="card-summary">多家企业正利用Claude Opus模型强化网络安全防御。Wiz通过其Red Agent，每周对超过15万个生产资产进行持续渗透测试，发现数千个高风险漏洞且误报…</p>
+      <a href="https://claude.com/blog/how-our-partners-are-putting-opus-to-work-for-cybersecurity" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="75">
+      <div class="card-header">
+        <span class="card-num">#75</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">v2.1.147版本更新</h3>
+      <div class="card-meta">
+        <span class="chip chip-anthropic">Claude Code：GitHub Releas</span>
+      </div>
+      <p class="card-summary">本次更新引入了`Workflow`工具，支持确定性多智能体编排（默认关闭）。将`/simplify`命令重命名为`/code-review`，现可报告代码正确性…</p>
+      <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.147" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="76">
+      <div class="card-header">
+        <span class="card-num">#76</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">Replit企业版现已开放自助购买</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Replit (@Replit)</span>
+      </div>
+      <p class="card-summary">Replit Enterprise现已支持自助服务！ 几分钟内即可： - 购买Replit Enterprise - 配置SSO + SCIM - 与团队开始协…</p>
+      <a href="https://x.com/Replit/status/2057491954825674942" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="77">
+      <div class="card-header">
+        <span class="card-num">#77</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">Datasette Agent</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">Simon Willison 博客</span>
+      </div>
+      <p class="card-summary">Datasette Agent是Datasette推出的首个可扩展AI助手，为用户提供对话式界面以查询数据，并支持通过插件生成图表。该工具基于其LLM Pyth…</p>
+      <a href="https://simonwillison.net/2026/May/21/datasette-agent" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="78">
+      <div class="card-header">
+        <span class="card-num">#78</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">Shoplift by PixVerse快速生成平台原生广告视频</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：PixVerse (@PixVerse_)</span>
+      </div>
+      <p class="card-summary">无需工作室，无需编辑队列。 将产品URL粘贴到Shoplift by PixVerse，几分钟内即可发布平台原生广告视频 ——专为持续进行创意测试的DTC团队打…</p>
+      <a href="https://x.com/PixVerse_/status/2057492991036588306" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="79">
+      <div class="card-header">
+        <span class="card-num">#79</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">发布 Kotlin版ADK与Android版ADK 0.1.0：在Android及其他平台构建AI Agent</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">Google Developers Blog（RS</span>
+      </div>
+      <p class="card-summary">Google发布了面向开发者的新工具包：Kotlin版ADK与Android版ADK 0.1.0。这两个工具包旨在帮助开发者构建AI Agent。其中，Kotl…</p>
+      <a href="https://developers.googleblog.com/adk-kotlin-android-building-ai-agents" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="80">
+      <div class="card-header">
+        <span class="card-num">#80</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">Gemini Omni发布，创意作品涌现</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Gemini (@GeminiApp)</span>
+      </div>
+      <p class="card-summary">Gemini Omni来了，我们本周看到了许多令人惊叹的创作。以下是一些杰出作品 👇</p>
+      <a href="https://x.com/GeminiApp/status/2057616371748651054" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="81">
+      <div class="card-header">
+        <span class="card-num">#81</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">动作捕捉与角色动画制作更轻松</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Viggle AI (@ViggleAI)</span>
+      </div>
+      <p class="card-summary">动作捕捉和角色动画制作从未如此简单。 持续构建，更多功能即将推出！</p>
+      <a href="https://x.com/ViggleAI/status/2057947352195858568" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="82">
+      <div class="card-header">
+        <span class="card-num">#82</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">谷歌I/O大会发布AI代理全套开发工具链</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Google AI (@GoogleAI)</span>
+      </div>
+      <p class="card-summary">谷歌在I/O开发者大会宣布，系统性构建面向AI代理（Agent）的开发与部署工具链。核心更新包括：独立桌面应用Antigravity 2.0及其命令行工具、SD…</p>
+      <a href="https://x.com/GoogleAI/status/2057871583843135978" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="83">
+      <div class="card-header">
+        <span class="card-num">#83</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">Antigravity付费版Gemini配额再翻三倍</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Google AI for Developer</span>
+      </div>
+      <p class="card-summary">更新：所有付费@Antigravity层级的*每周*Gemini配额已再次提升至三倍，且配额已正式重置。</p>
+      <a href="https://x.com/googleaidevs/status/2057679246085226965" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="84">
+      <div class="card-header">
+        <span class="card-num">#84</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">Claude自动模式新增Pro计划与模型支持</h3>
+      <div class="card-meta">
+        <span class="chip chip-anthropic">X：Claude Devs (@ClaudeDev</span>
+      </div>
+      <p class="card-summary">自动模式的两项更新： · 现已在Pro计划中提供 · 现已支持Sonnet 4.6，以及Opus 4.7 按下Shift+tab，让Claude运行。</p>
+      <a href="https://x.com/ClaudeDevs/status/2057946803685974482" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="85">
+      <div class="card-header">
+        <span class="card-num">#85</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">ChatGPT语音模式实现表单语音填写</h3>
+      <div class="card-meta">
+        <span class="chip chip-openai">X：ChatGPT (@ChatGPTapp)</span>
+      </div>
+      <p class="card-summary">用对话处理文书工作更轻松。 借助ChatGPT的图像功能和语音模式，您可以上传表单，说出要填写的内容，即可获得填写完成的版本。</p>
+      <a href="https://x.com/ChatGPTapp/status/2057908052968521902" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="86">
+      <div class="card-header">
+        <span class="card-num">#86</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">新增差异标记样式设置选项</h3>
+      <div class="card-meta">
+        <span class="chip chip-openai">X：OpenAI Developers (@Ope</span>
+      </div>
+      <p class="card-summary">已发布剪纸功能：外观设置中新增差异标记样式。 在查看差异时更喜欢经典的 + / - 标记？现在你可以选择使用它们，而不仅仅是彩色差异条。 默认设置保持不变，除非…</p>
+      <a href="https://x.com/OpenAIDevs/status/2057918624841728349" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="87">
+      <div class="card-header">
+        <span class="card-num">#87</span>
+        <span class="card-date">5月23日（周六）</span>
+      </div>
+      <h3 class="card-title">Project Genie与谷歌街景合作推出交互式世界</h3>
+      <div class="card-meta">
+        <span class="chip chip-google">X：Google DeepMind (@Googl</span>
+      </div>
+      <p class="card-summary">Project Genie 🤝 @GoogleMaps Street View 你现在可以将真实的美国地点转化为全新的交互式世界。🌍</p>
+      <a href="https://x.com/GoogleDeepMind/status/2057842131142590512" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="88">
+      <div class="card-header">
+        <span class="card-num">#88</span>
+        <span class="card-date">5月24日（周日）</span>
+      </div>
+      <h3 class="card-title">StepAudio 2.5实时语音发布：副语言感知与人格化交互</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：阶跃星辰 StepFun (@StepFun_</span>
+      </div>
+      <p class="card-summary">StepAudio 2.5 Realtime是一款实时语音模型，能够深度理解用户语音中的语气、语速、停顿乃至微表情等副语言特征。它支持通过API接入自定义人格…</p>
+      <a href="https://x.com/StepFun_ai/status/2058303294544425197" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="89">
+      <div class="card-header">
+        <span class="card-num">#89</span>
+        <span class="card-date">5月24日（周日）</span>
+      </div>
+      <h3 class="card-title">Models.dev：一个关于人工智能模型规格、定价和功能的开源数据库</h3>
+      <div class="card-meta">
+        <span class="chip chip-tech">Hacker News 热门（buzzing.cc</span>
+      </div>
+      <p class="card-summary">近期发布了开源数据库Models.dev，专门收录人工智能模型的各项规格、定价及功能信息。该项目在GitHub公开，便于开发者查询和比较不同AI模型。其在Hac…</p>
+      <a href="https://github.com/anomalyco/models.dev" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="90">
+      <div class="card-header">
+        <span class="card-num">#90</span>
+        <span class="card-date">5月24日（周日）</span>
+      </div>
+      <h3 class="card-title">Replit Agent与Squidler集成，实现全自动化AI质量保障</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Replit (@Replit)</span>
+      </div>
+      <p class="card-summary">Replit Agent与Squidler已完成集成，形成一套完整的AI驱动质量保障闭环。用户可通过自然语言描述应用功能，由Replit Agent负责构建。构…</p>
+      <a href="https://x.com/Replit/status/2058261705998602548" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="91">
+      <div class="card-header">
+        <span class="card-num">#91</span>
+        <span class="card-date">5月24日（周日）</span>
+      </div>
+      <h3 class="card-title">v2.1.150版本更新</h3>
+      <div class="card-meta">
+        <span class="chip chip-anthropic">Claude Code：GitHub Releas</span>
+      </div>
+      <p class="card-summary">v2.1.150版本包含内部基础设施优化。此次更新主要聚焦于后台系统的改进，未引入任何用户可见的功能、界面或体验变更。</p>
+      <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.150" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+      </div>
+    </section>
+    <section id="hr-ai" class="section">
+      <div class="section-header">
+        <span class="section-icon">👥</span>
+        <h2 class="section-title">HR×AI行业动态</h2>
+        <span class="section-badge">7 条</span>
+      </div>
+      <div class="card-grid">
+        
+    <div class="card" data-num="92">
+      <div class="card-header">
+        <span class="card-num">#92</span>
+        <span class="card-date">5月18日（周一）</span>
+      </div>
+      <h3 class="card-title">微软AI CEO预测18个月内AI自动化所有白领工作</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Kim (@kimmonismus)</span>
+      </div>
+      <p class="card-summary">微软AI CEO Mustafa Suleyman预测，AI将在18个月内实现人类水平的性能，自动化大多数专业任务，包括会计、法律、营销和项目管理。他在Fort…</p>
+      <a href="https://x.com/kimmonismus/status/2055952702908355012" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="93">
+      <div class="card-header">
+        <span class="card-num">#93</span>
+        <span class="card-date">5月21日（周四）</span>
+      </div>
+      <h3 class="card-title">Meta万人重组：裁员与AI转型并举</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Rohan Paul (@rohanpaul_</span>
+      </div>
+      <p class="card-summary">Meta启动大规模裁员，计划削减约8000个岗位。与此同时，约7000名员工将被调配至新的AI相关职位。此次调整并非单纯的削减成本，更是公司围绕AI进行内部结构…</p>
+      <a href="https://x.com/rohanpaul_ai/status/2057177976492720363" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="94">
+      <div class="card-header">
+        <span class="card-num">#94</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">加州州长纽森签署首创性行政令，为应对AI可能带来的劳动力市场冲击做准备</h3>
+      <div class="card-meta">
+        <span class="chip chip-default">X：Rohan Paul (@rohanpaul_</span>
+      </div>
+      <p class="card-summary">加州州长纽森签署行政令，首次将AI引发的失业问题正式列为公共政策议题，要求各部门研究遣散费、就业保险及员工持股等保障措施。该命令认识到AI可能渐进式替代岗位任务…</p>
+      <a href="https://x.com/rohanpaul_ai/status/2057555054387949848" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="95">
+      <div class="card-header">
+        <span class="card-num">#95</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">Intuit将裁员逾3000人，以重新聚焦人工智能</h3>
+      <div class="card-meta">
+        <span class="chip chip-tech">Hacker News 热门（buzzing.cc</span>
+      </div>
+      <p class="card-summary">软件公司Intuit宣布将裁员超过3000人，作为其战略重组的一部分。此次裁员旨在将公司资源重新聚焦于人工智能（AI）领域的发展，以适应技术趋势并提升长期竞争力…</p>
+      <a href="https://techcrunch.com/2026/05/20/intuit-to-lay-off-over-3000-employees-to-refocus-on-ai" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="96">
+      <div class="card-header">
+        <span class="card-num">#96</span>
+        <span class="card-date">5月22日（周五）</span>
+      </div>
+      <h3 class="card-title">谷歌高级副总裁曼尼卡：AI短期内不会摧毁就业市场</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">谷歌高级副总裁詹姆斯·曼尼卡近日表示，AI短期内不会摧毁就业市场，也不同意“大规模失业”的激进预测。他援引其2017年参与的麦肯锡报告指出，自动化将同时导致岗位…</p>
+      <a href="https://www.ithome.com/0/953/469.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="97">
+      <div class="card-header">
+        <span class="card-num">#97</span>
+        <span class="card-date">5月24日（周日）</span>
+      </div>
+      <h3 class="card-title">微软称，使用人工智能的成本高于支付人工工资</h3>
+      <div class="card-meta">
+        <span class="chip chip-tech">Hacker News 热门（buzzing.cc</span>
+      </div>
+      <p class="card-summary">微软发布报告指出，在特定工作场景中，部署和使用人工智能（AI）的成本目前已高于支付相应的人工工资。报告分析了基于“tokens”（令牌）和“agents”（智能…</p>
+      <a href="https://fortune.com/2026/05/22/microsoft-ai-cost-problem-tokens-agents" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+    <div class="card" data-num="98">
+      <div class="card-header">
+        <span class="card-num">#98</span>
+        <span class="card-date">5月24日（周日）</span>
+      </div>
+      <h3 class="card-title">AI 替代入门级工作：科技行业受裁员冲击最重，74% CEO 冻结或缩减招聘</h3>
+      <div class="card-meta">
+        <span class="chip chip-media">IT之家（RSS）</span>
+      </div>
+      <p class="card-summary">奥纬咨询研究发现，AI工具正被广泛用于入门级任务，导致企业招聘重心转向高级岗位，年轻人求职难度加大。科技行业受冲击最严重，74%的CEO已冻结或缩减招聘。计划削…</p>
+      <a href="https://www.ithome.com/0/954/235.htm" target="_blank" rel="noopener noreferrer" class="card-link">
+        查看原文 →
+      </a>
+    </div>
+      </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>共收录 <strong style="color:var(--primary)">98 条</strong>精选 AI 资讯 · 覆盖 2026年5月18日—5月24日</p>
+  <p style="margin-top:6px">数据来源：<a href="https://aihot.virxact.com" target="_blank" rel="noopener noreferrer">aihot.virxact.com</a> · 由 AI 助手整理生成</p>
+</footer>
+
+<!-- Back to top -->
+<a href="#" class="back-top" id="backTop" title="回到顶部">↑</a>
+
+<script>
+// 滚动渐入动画
+(function() {
+  const cards = document.querySelectorAll('.card');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+  
+  cards.forEach((card, i) => {
+    card.style.transitionDelay = (i % 6) * 0.04 + 's';
+    io.observe(card);
+  });
+  
+  // Back to top button
+  const btn = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  });
+  
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  
+  // Active nav item highlight
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+  
+  const sio = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navItems.forEach(n => {
+          if (n.getAttribute('href') === '#' + id) {
+            n.style.color = 'var(--primary)';
+            n.style.background = 'rgba(43,127,224,0.08)';
+          } else {
+            n.style.color = '';
+            n.style.background = '';
+          }
+        });
+      }
+    });
+  }, { threshold: 0.2 });
+  
+  sections.forEach(s => sio.observe(s));
+})();
+</script>
+</body>
+</html>
